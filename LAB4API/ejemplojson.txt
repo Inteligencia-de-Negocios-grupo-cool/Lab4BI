@@ -40,3 +40,95 @@
   "income_composition_of_resources": 0.479,
   "Schooling": 10.1
 }
+-----------------------------------
+{
+  "datos": [
+    {
+      "Adult_mortality": 263.0,
+      "infant_deaths": 62,
+      "alcohol": 0.01,
+      "percentage_expenditure": 71.279624,
+      "hepatitis_B": 65.0,
+      "measles": 1154,
+      "bmi": 19.1,
+      "under_five_deaths": 83,
+      "polio": 6.0,
+      "total_expenditure": 8.16,
+      "diphtheria": 65.0,
+      "hiv_aids": 0.1,
+      "gdp": 584.259210,
+      "population": 33736494.0,
+      "thinness_10_19_years": 17.2,
+      "thinness_5_9_years": 17.3,
+      "income_composition_of_resources": 0.479,
+      "Schooling": 10.1
+    },
+    {
+      "Adult_mortality": 271.0,
+      "infant_deaths": 64,
+      "alcohol": 0.01,
+      "percentage_expenditure": 73.523582,
+      "hepatitis_B": 62.0,
+      "measles": 492,
+      "bmi": 18.6,
+      "under_five_deaths": 86,
+      "polio": 58.0,
+      "total_expenditure": 8.18,
+      "diphtheria": 62.0,
+      "hiv_aids": 0.1,
+      "gdp": 612.696514,
+      "population": 327582.0,
+      "thinness_10_19_years": 17.5,
+      "thinness_5_9_years": 17.5,
+      "income_composition_of_resources": 0.476,
+      "Schooling": 10.0
+    }
+  ]
+}
+-------------------------------------------------
+{
+  "datos": [
+    {
+      "Life_expectancy": 65.0,
+      "Adult_mortality": 263.0,
+      "infant_deaths": 62,
+      "alcohol": 0.01,
+      "percentage_expenditure": 71.279624,
+      "hepatitis_B": 65.0,
+      "measles": 1154,
+      "bmi": 19.1,
+      "under_five_deaths": 83,
+      "polio": 6.0,
+      "total_expenditure": 8.16,
+      "diphtheria": 65.0,
+      "hiv_aids": 0.1,
+      "gdp": 584.259210,
+      "population": 33736494.0,
+      "thinness_10_19_years": 17.2,
+      "thinness_5_9_years": 17.3,
+      "income_composition_of_resources": 0.479,
+      "Schooling": 10.1
+    },
+    {
+      "Life_expectancy": 59.9,
+      "Adult_mortality": 271.0,
+      "infant_deaths": 64,
+      "alcohol": 0.01,
+      "percentage_expenditure": 73.523582,
+      "hepatitis_B": 62.0,
+      "measles": 492,
+      "bmi": 18.6,
+      "under_five_deaths": 86,
+      "polio": 58.0,
+      "total_expenditure": 8.18,
+      "diphtheria": 62.0,
+      "hiv_aids": 0.1,
+      "gdp": 612.696514,
+      "population": 327582.0,
+      "thinness_10_19_years": 17.5,
+      "thinness_5_9_years": 17.5,
+      "income_composition_of_resources": 0.476,
+      "Schooling": 10.0
+    }
+  ]
+}

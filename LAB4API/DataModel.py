@@ -1,3 +1,4 @@
+from typing import List
 from pydantic import BaseModel
 from fastapi import FastAPI
 import pandas as pd
@@ -44,7 +45,10 @@ class DataPrediccion(BaseModel):
     thinness_5_9_years: float
     income_composition_of_resources	: float
     Schooling: float
-
+class ListPrediccion(BaseModel):
+    datos:List[DataModelapp]=None
+class ListError(BaseModel):
+    datos:List[DataPrediccion]=None
 #Esta función retorna los nombres de las columnas correspondientes con el modelo exportado en joblib.
     def columns(self):
         return ["Adult Mortality", "infant deaths", "Alcohol","percentage expenditure","Hepatitis B", "Measles", "BMI",
@@ -55,7 +59,7 @@ def read_root():
    return {"Hello": "World"}
 
 @app.post("/Data/predict")
-async def make_predictions(dataModel: DataModelapp):
+async def make_prediction(dataModel: DataModelapp):
     
     df = pd.DataFrame(dataModel.dict(),index=[0])
     df.rename(columns={'Adult_mortality':'Adult Mortality','income_composition_of_resources':'Income composition of resources'},inplace=True)
@@ -81,4 +85,34 @@ async def RMSE(dataModel: DataPrediccion):
     listaValorEsperado=[valorEsperadoY]
     rmse=np.sqrt(mse(listaValorEsperado, result))
 
-    return {"Erro cuadrático medio: ": rmse}           
+    return {"Error cuadrático medio: ": rmse}  
+
+@app.post("/Data/predict/list")
+async def make_predictionsList(dataList: ListPrediccion):
+    lista_datos=dataList.dict()['datos']
+    model = load("../pipelinelab4.joblib")
+    respuestastr=''
+    for i in lista_datos:
+        df = pd.DataFrame(i,index=[0])
+        df.rename(columns={'Adult_mortality':'Adult Mortality','income_composition_of_resources':'Income composition of resources'},inplace=True)
+        result = model.predict(df)
+        resultado=result[0]
+        respuestastr=respuestastr+' , '+str(resultado)
+    
+    return {"Tiempos de expectavida de vida de cada set de datos: ": respuestastr}
+@app.post("/Data/predict/RMSE/list")
+async def RMSE(dataList: ListError):
+    lista_datos=dataList.dict()['datos']
+    model = load("../pipelinelab4.joblib")
+    resultado=[]
+    valorEsperadoY=[]
+    for i in lista_datos:
+        valorEsperadoY.append(i['Life_expectancy'])
+        del i['Life_expectancy']
+        df = pd.DataFrame(i,index=[0])
+        df.rename(columns={'Adult_mortality':'Adult Mortality','income_composition_of_resources':'Income composition of resources'},inplace=True)
+        result = model.predict(df)
+        resultado.append(result[0])
+    
+    rmse=np.sqrt(mse(valorEsperadoY, resultado))
+    return {"Error cuadrático medio: ": rmse}
