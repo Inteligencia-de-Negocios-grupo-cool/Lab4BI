@@ -2,8 +2,30 @@ from pydantic import BaseModel
 from fastapi import FastAPI
 import pandas as pd
 from joblib import load
+import numpy as np
+from sklearn.metrics import mean_squared_error as mse
 app = FastAPI()
 class DataModelapp(BaseModel):
+    Adult_mortality: float
+    infant_deaths: float
+    alcohol: float
+    percentage_expenditure: float
+    hepatitis_B: float
+    measles: float
+    bmi: float
+    under_five_deaths: float
+    polio: float
+    total_expenditure: float
+    diphtheria: float
+    hiv_aids: float
+    gdp: float
+    population: float
+    thinness_10_19_years: float
+    thinness_5_9_years: float
+    income_composition_of_resources	: float
+    Schooling: float
+class DataPrediccion(BaseModel):
+    Life_expectancy: float
     Adult_mortality: float
     infant_deaths: float
     alcohol: float
@@ -43,5 +65,20 @@ async def make_predictions(dataModel: DataModelapp):
     result = model.predict(df)
     resultado=result[0]
     return {"Tiempo de expectavida de vida: ": resultado}
-            
+
+@app.post("/Data/predict/RMSE")
+async def RMSE(dataModel: DataPrediccion):
+    datosDict=dataModel.dict()
+    valorEsperadoY=datosDict['Life_expectancy']
     
+    del datosDict['Life_expectancy']
+    df = pd.DataFrame(datosDict,index=[0])
+    df.rename(columns={'Adult_mortality':'Adult Mortality','income_composition_of_resources':'Income composition of resources'},inplace=True)
+    
+    #df.columns = dataModel.columns()
+    model = load("../pipelinelab4.joblib")
+    result = model.predict(df)
+    listaValorEsperado=[valorEsperadoY]
+    rmse=np.sqrt(mse(listaValorEsperado, result))
+
+    return {"Erro cuadrático medio: ": rmse}           
