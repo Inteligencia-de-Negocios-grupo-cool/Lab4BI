@@ -83,7 +83,7 @@ async def make_predictionsList(dataList: ListPrediccion):
         resultado=result[0]
         respuestastr=respuestastr+' , '+str(resultado)
     
-    return {"Tiempos de expectavida de vida de cada set de datos: ": respuestastr}
+    return {"Tiempos de expectativa de vida de cada set de datos: ": respuestastr}
 @app.post("/Data/predict/Rcuadrado/list")
 async def RMSE(dataList: ListError):
     lista_datos=dataList.dict()['datos']
