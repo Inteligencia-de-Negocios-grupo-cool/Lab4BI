@@ -68,7 +68,7 @@ async def make_prediction(dataModel: DataModelapp):
     model = load("../pipelinelab4.joblib")
     result = model.predict(df)
     resultado=result[0]
-    return {"Tiempo de expectavida de vida: ": resultado}
+    return {"Tiempo de expectativa de vida: ": resultado}
   
 
 @app.post("/Data/predict/list")
