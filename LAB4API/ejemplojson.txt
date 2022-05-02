@@ -20,28 +20,6 @@
 }
 -----------------------------------
 {
-  "Life_expectancy": 65.0,
-  "Adult_mortality": 263.0,
-  "infant_deaths": 62,
-  "alcohol": 0.01,
-  "percentage_expenditure": 71.279624,
-  "hepatitis_B": 65.0,
-  "measles": 1154,
-  "bmi": 19.1,
-  "under_five_deaths": 83,
-  "polio": 6.0,
-  "total_expenditure": 8.16,
-  "diphtheria": 65.0,
-  "hiv_aids": 0.1,
-  "gdp": 584.259210,
-  "population": 33736494.0,
-  "thinness_10_19_years": 17.2,
-  "thinness_5_9_years": 17.3,
-  "income_composition_of_resources": 0.479,
-  "Schooling": 10.1
-}
------------------------------------
-{
   "datos": [
     {
       "Adult_mortality": 263.0,

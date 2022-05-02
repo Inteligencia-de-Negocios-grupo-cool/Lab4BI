@@ -68,24 +68,7 @@ async def make_prediction(dataModel: DataModelapp):
     model = load("../pipelinelab4.joblib")
     result = model.predict(df)
     resultado=result[0]
-    return {"Tiempo de expectavida de vida: ": resultado}
-
-@app.post("/Data/predict/RMSE")
-async def RMSE(dataModel: DataPrediccion):
-    datosDict=dataModel.dict()
-    valorEsperadoY=datosDict['Life_expectancy']
-    
-    del datosDict['Life_expectancy']
-    df = pd.DataFrame(datosDict,index=[0])
-    df.rename(columns={'Adult_mortality':'Adult Mortality','income_composition_of_resources':'Income composition of resources'},inplace=True)
-    
-    #df.columns = dataModel.columns()
-    model = load("../pipelinelab4.joblib")
-    result = model.predict(df)
-    listaValorEsperado=[valorEsperadoY]
-    rmse=np.sqrt(mse(listaValorEsperado, result))
-
-    return {"Error cuadrático medio: ": rmse}  
+    return {"Tiempo de expectavida de vida: ": resultado}  
 
 @app.post("/Data/predict/list")
 async def make_predictionsList(dataList: ListPrediccion):
@@ -100,19 +83,23 @@ async def make_predictionsList(dataList: ListPrediccion):
         respuestastr=respuestastr+' , '+str(resultado)
     
     return {"Tiempos de expectavida de vida de cada set de datos: ": respuestastr}
-@app.post("/Data/predict/RMSE/list")
+@app.post("/Data/predict/Rcuadrado/list")
 async def RMSE(dataList: ListError):
     lista_datos=dataList.dict()['datos']
     model = load("../pipelinelab4.joblib")
     resultado=[]
-    valorEsperadoY=[]
+    valorEsperadoY={}
+    dataframe=pd.DataFrame()
+    dataframe_y=pd.DataFrame()
     for i in lista_datos:
-        valorEsperadoY.append(i['Life_expectancy'])
+        valorEsperadoY['Life_expectancy']=i['Life_expectancy']
         del i['Life_expectancy']
+        df_y = pd.DataFrame(valorEsperadoY,index=[0])
+        df_y.rename(columns={'Life_expectancy':'Life expectancy'},inplace=True)
         df = pd.DataFrame(i,index=[0])
         df.rename(columns={'Adult_mortality':'Adult Mortality','income_composition_of_resources':'Income composition of resources'},inplace=True)
-        result = model.predict(df)
-        resultado.append(result[0])
+        dataframe=pd.concat([dataframe,df])
+        dataframe_y=pd.concat([dataframe_y,df_y])
+    rcuadrado=model.score(dataframe,dataframe_y)
     
-    rmse=np.sqrt(mse(valorEsperadoY, resultado))
-    return {"Error cuadrático medio: ": rmse}
+    return {"Error r ^2: ": rcuadrado} 
